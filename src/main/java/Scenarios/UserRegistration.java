@@ -23,47 +23,8 @@ import java.awt.event.KeyEvent;
 import java.security.Key;
 
 
-public class UserRegistration {
-    WebDriver driver;
-    Robot robot;
-    Actions mouse;
+public class UserRegistration extends PreReq {
 
-    @BeforeClass
-    /** Setup browser
-     * Test prerequisite; browser setup
-     * @param browser
-     * @param app
-     */
-    @Parameters({"browser", "url"})
-    void setup(String browser, String app) {
-        if (browser.equalsIgnoreCase("chrome")) {
-            WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver();
-        } else if (browser.equalsIgnoreCase("firefox")) {
-            WebDriverManager.firefoxdriver().setup();
-            driver = new FirefoxDriver();
-        } else if (browser.equalsIgnoreCase("edge")) {
-            WebDriverManager.edgedriver().setup();
-            driver = new EdgeDriver();
-        }
-//        else{
-//    void setup() {
-//        WebDriverManager.chromedriver().setup();
-//        driver = new ChromeDriver();
-//        driver.get("https://automationexercise.com/");
-//        driver.manage().window().maximize();
-//
-//    }
-     }
-
-    @Test(priority = 1)
-        // Verify that page is visible
-    void pageVisibility() {
-        String pageTitle = "Automation Exercise";
-        String title = driver.getTitle();
-        Assert.assertEquals(title, pageTitle);
-
-    }
 
     @Test(priority = 2)
         // click signup
@@ -126,14 +87,19 @@ public class UserRegistration {
         Thread.sleep(3000);
         robot.keyPress(KeyEvent.VK_TAB);  // navigates to next field
         driver.switchTo().activeElement().click();
+        Thread.sleep(3000);
         driver.findElement(By.xpath("//select[@id='days']/option[@value='12']")).click();
         robot.keyPress(KeyEvent.VK_TAB);
         driver.switchTo().activeElement().click();
+        Thread.sleep(3000);
         driver.findElement(By.xpath("//select[@id='months']//option[normalize-space()='December']")).click();
         robot.keyPress(KeyEvent.VK_TAB);
         driver.switchTo().activeElement().click();
+        Thread.sleep(3000);
         driver.findElement(By.xpath("//select[@id='years']//option[normalize-space()='1992']")).click();
-
+        Thread.sleep(3000);
+        mouse.sendKeys(Keys.PAGE_DOWN).build().perform();
+        Thread.sleep(3000);
     }
 
     @Test(priority = 8)
@@ -152,35 +118,52 @@ public class UserRegistration {
         addrName.sendKeys("Moshood");
         robot.keyPress(KeyEvent.VK_TAB);
         driver.switchTo().activeElement().sendKeys("Ahmed");
+        Thread.sleep(3000);
         robot.keyPress(KeyEvent.VK_TAB);
         driver.switchTo().activeElement().sendKeys("The Bulb Africa");
+        Thread.sleep(3000);
         robot.keyPress(KeyEvent.VK_TAB);
         driver.switchTo().activeElement().sendKeys("3b watch Tower street ajegunle Lagos");
+        Thread.sleep(3000);
         robot.keyPress(KeyEvent.VK_TAB);
         mouse.sendKeys(Keys.PAGE_DOWN).build().perform();
         driver.switchTo().activeElement().sendKeys("3b watch Tower street ajegunle Lagos");
+
+        Thread.sleep(3000);
+
         robot.keyPress(KeyEvent.VK_TAB);
         robot.keyPress(KeyEvent.VK_ENTER);
+
         Thread.sleep(3000);
+
         driver.switchTo().activeElement();
-        driver.findElement(By.xpath("//select[@id='country']/option[normalize-space()='Canada']")).click();
         Thread.sleep(3000);
-//        WebElement EdFrame =driver.findElement(By.xpath("/html/body/ins[2]/div[1]//ins/span/svg/g"));
-//        driver.switchTo().frame(EdFrame);
-//        EdFrame.click();
+        driver.findElement(By.xpath("//select[@id='country']/option[normalize-space()='Canada']")).click();
+
+        Thread.sleep(3000);
+
         robot.keyPress(KeyEvent.VK_TAB);
         driver.switchTo().activeElement().sendKeys("Lagos");
+
         Thread.sleep(2000);
+
         robot.keyPress(KeyEvent.VK_TAB);
         driver.switchTo().activeElement().sendKeys("alimosho");
+
         Thread.sleep(2000);
+
         robot.keyPress(KeyEvent.VK_TAB);
         driver.switchTo().activeElement().sendKeys("10000001");
+
         Thread.sleep(2000);
+
         robot.keyPress(KeyEvent.VK_TAB);
         driver.switchTo().activeElement().sendKeys("+2348038929267");
+
         Thread.sleep(2000);
+
         robot.keyPress(KeyEvent.VK_TAB);
+
         Thread.sleep(5000);
 
     }
@@ -233,7 +216,7 @@ public class UserRegistration {
     void accountDeleted() throws InterruptedException {
         String expectedDelMsg = "ACCOUNT DELETED!";
         String actualDelMsg = driver.findElement(By.xpath("//div[@class='col-sm-9 col-sm-offset-1']/h2/b")).getText();
-        Assert.assertEquals(actualDelMsg,expectedDelMsg);
+        Assert.assertEquals(actualDelMsg, expectedDelMsg);
         Thread.sleep(3000);
     }
 
